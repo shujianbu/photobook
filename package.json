@@ -1,0 +1,15 @@
+{
+  "name": "photobook",
+  "version": "1.0.0",
+  "description": "Photo book using Dropbox API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shujian Bu",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^17.2.0",
+    "inert": "^5.1.0"
+  }
+}
