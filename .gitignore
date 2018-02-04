@@ -66,3 +66,8 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+### System ###
+.cache/*
+dist/*
+build/*
