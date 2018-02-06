@@ -5,12 +5,12 @@
 </template>
 
 <script>
-  export default {
-    name: 'app',
-    data () {
-      return {
-        msg: 'Photo Book'
-      }
+export default {
+  name: 'app',
+  data() {
+    return {
+      msg: 'Photo Book'
     }
   }
+}
 </script>
