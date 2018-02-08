@@ -12,6 +12,7 @@
   "author": "Shujian Bu",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^5.0.0",
     "hapi": "^17.2.0",
     "inert": "^5.1.0",
     "vue": "^2.5.13"
