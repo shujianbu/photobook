@@ -8,5 +8,8 @@ module.exports = {
   DBX_TOKEN_PATH: '/oauth2/token',
   DBX_APP_KEY: config.parsed.DBX_APP_KEY,
   DBX_APP_SECRET: config.parsed.DBX_APP_SECRET,
-  OAUTH_REDIRECT_URL: 'http://localhost:3000/oauthredirect'
+  OAUTH_REDIRECT_URL: 'http://localhost:3000/oauthredirect',
+  DBX_LIST_FOLDER_PATH: '/2/files/list_folder',
+  DBX_LIST_FOLDER_CONTINUE_PATH: '/2/files/list_folder/continue',
+  DBX_GET_TEMPORARY_LINK_PATH: '/2/files/get_temporary_link'
 }
