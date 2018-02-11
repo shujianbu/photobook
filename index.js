@@ -8,20 +8,32 @@ const rp = require('request-promise')
 const queryString = require('query-string')
 const uuid = require('uuid/v1')
 const config = require('./config')
+const controller = require('./controller')
 
 const server = new Hapi.Server({ host: 'localhost', port: 3000 })
 const cache = server.cache({
   segment: 'sessions',
-  expiresIn: 60 * 60 * 1000
+  expiresIn: 60 * 60 * 1000,
 })
 
-const home = () => {
-  return (
-    '<html><head><title>Login page</title></head><body><h3>Welcome ' +
-    '!</h3><br/><form method="get" action="/logout">' +
-    '<input type="submit" value="Logout">' +
-    '</form></body></html>'
-  )
+const home = async (request, h) => {
+  const token = request.auth.credentials.access_token
+  if (token) {
+    try {
+      const paths = await controller.getLinksAsync(token)
+      console.log(paths)
+      return (
+        '<html><head><title>Login page</title></head><body><h3>Welcome ' +
+        '!</h3><br/><form method="get" action="/logout">' +
+        '<input type="submit" value="Logout">' +
+        '</form></body></html>'
+      )
+    } catch (error) {
+      return new Error('Error getting images from Dropbox')
+    }
+  } else {
+    h.redirect('/login')
+  }
 }
 
 const login = async (request, h) => {
@@ -38,10 +50,10 @@ const login = async (request, h) => {
         grant_type: 'authorization_code',
         client_id: config.DBX_APP_KEY,
         client_secret: config.DBX_APP_SECRET,
-        redirect_uri: config.OAUTH_REDIRECT_URL
+        redirect_uri: config.OAUTH_REDIRECT_URL,
       },
       method: 'POST',
-      json: true
+      json: true,
     }
 
     try {
@@ -50,7 +62,7 @@ const login = async (request, h) => {
       await request.server.app.cache.set(
         sid,
         { account: { access_token: response.access_token } },
-        0
+        0,
       )
       request.cookieAuth.set({ sid })
       return h.redirect('/')
@@ -99,7 +111,7 @@ const init = async () => {
       }
 
       return out
-    }
+    },
   })
 
   server.auth.default('session')
@@ -109,8 +121,8 @@ const init = async () => {
       method: 'GET',
       path: '/',
       options: {
-        handler: home
-      }
+        handler: home,
+      },
     },
     {
       method: ['GET', 'POST'],
@@ -118,23 +130,23 @@ const init = async () => {
       options: {
         handler: login,
         auth: { mode: 'try' },
-        plugins: { 'hapi-auth-cookie': { redirectTo: false } }
-      }
+        plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+      },
     },
     {
       method: 'GET',
       path: '/logout',
       options: {
-        handler: logout
-      }
+        handler: logout,
+      },
     },
     {
       method: 'GET',
       path: '/oauthredirect',
       options: {
-        handler: async (request, h) => h.redirect('/')
-      }
-    }
+        handler: async (request, h) => h.redirect('/'),
+      },
+    },
   ])
 
   await server.start()
