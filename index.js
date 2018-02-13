@@ -12,8 +12,8 @@ const config = require('./config')
 const controller = require('./controller')
 
 const server = new Hapi.Server({
-  host: 'localhost',
-  port: process.env.PORT || 5000,
+  host: '0.0.0.0',
+  port: process.env.PORT || 3000,
 })
 const cache = server.cache({
   segment: 'sessions',
