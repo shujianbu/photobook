@@ -4,7 +4,8 @@
   "description": "Photo book using Dropbox API.",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
+    "start": "node index.js",
+    "dev": "npx nodemon index.js",
     "build": "npx parcel build src/main.js -d client/",
     "precommit": "pretty-quick --staged",
     "test": "echo \"Error: no test specified\" && exit 1"
