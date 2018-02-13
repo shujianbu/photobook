@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = require('fs')
 const Hapi = require('hapi')
 const Inert = require('inert')
 const crypto = require('crypto')
@@ -117,6 +118,18 @@ const init = async () => {
   server.auth.default('session')
 
   server.route([
+    {
+      method: 'GET',
+      path: '/favicon.ico',
+      options: {
+        auth: false,
+        handler: (request, h) =>
+          h
+            .response(fs.createReadStream('./favicon.ico'))
+            .code(200)
+            .type('image/x-icon'),
+      },
+    },
     {
       method: 'GET',
       path: '/',
