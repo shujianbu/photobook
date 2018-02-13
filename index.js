@@ -11,7 +11,10 @@ const uuid = require('uuid/v1')
 const config = require('./config')
 const controller = require('./controller')
 
-const server = new Hapi.Server({ host: 'localhost', port: 3000 })
+const server = new Hapi.Server({
+  host: 'localhost',
+  port: process.env.PORT || 5000,
+})
 const cache = server.cache({
   segment: 'sessions',
   expiresIn: 60 * 60 * 1000,
