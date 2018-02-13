@@ -11,6 +11,9 @@
   },
   "author": "Shujian Bu",
   "license": "ISC",
+  "engines": {
+    "node": "~8.9.4"
+  },
   "dependencies": {
     "dotenv": "^5.0.0",
     "hapi": "^17.2.0",
