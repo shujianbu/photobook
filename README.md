@@ -15,10 +15,13 @@ An interactive photo gallery for baby's first year and beyond. Keep track of mil
 * Electron
 * Dropbox API
 * OAuth
-* Redis
 * Heroku
 * Vue
 * Hapi
 * Parcel
 
 ## TODO
+
+* error handling
+* vue & parcel part
+* electron
