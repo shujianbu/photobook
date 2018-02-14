@@ -24,7 +24,10 @@ const init = async () => {
     Scooter,
     {
       plugin: Blankie,
-      options: {}, // specify options here
+      options: {
+        imgSrc: ["'self'", 'https://dl.dropboxusercontent.com'],
+        frameSrc: 'none',
+      },
     },
   ])
 
