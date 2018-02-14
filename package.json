@@ -16,6 +16,7 @@
     "node": "~8.9.4"
   },
   "dependencies": {
+    "blankie": "^4.0.0",
     "dotenv": "^5.0.0",
     "hapi": "^17.2.0",
     "hapi-auth-cookie": "^8.0.1",
@@ -23,6 +24,7 @@
     "query-string": "^5.1.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "scooter": "^5.0.0",
     "uuid": "^3.2.1",
     "vue": "^2.5.13"
   },

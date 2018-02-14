@@ -3,6 +3,8 @@
 const fs = require('fs')
 const Hapi = require('hapi')
 const Inert = require('inert')
+const Blankie = require('blankie')
+const Scooter = require('scooter')
 const AuthCookie = require('hapi-auth-cookie')
 const { home, login, logout } = require('./service/routes')
 
@@ -18,6 +20,14 @@ const cache = server.cache({
 const init = async () => {
   await server.register(AuthCookie)
   await server.register(Inert)
+  await server.register([
+    Scooter,
+    {
+      plugin: Blankie,
+      options: {}, // specify options here
+    },
+  ])
+
   server.app.cache = cache
 
   server.auth.strategy('session', 'cookie', {
