@@ -1,4 +1,5 @@
 const uuid = require('uuid/v1')
+const Boom = require('boom')
 const crypto = require('crypto')
 const rp = require('request-promise')
 const queryString = require('query-string')
@@ -19,7 +20,7 @@ module.exports.home = async (request, h) => {
         '</form></body></html>'
       )
     } catch (error) {
-      return new Error('Error getting images from Dropbox')
+      return Boom.resourceGone('Error getting images from Dropbox')
     }
   } else {
     h.redirect('/login')
@@ -52,12 +53,12 @@ module.exports.login = async (request, h) => {
       await request.server.app.cache.set(
         sid,
         { account: { access_token: response.access_token } },
-        0,
+        0
       )
       request.cookieAuth.set({ sid })
       return h.redirect('/')
     } catch (err) {
-      console.log('err') // TODO: error page
+      return Boom.unauthorized()
     }
   } else {
     const state = crypto.randomBytes(16).toString('hex')

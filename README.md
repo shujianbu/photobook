@@ -22,6 +22,5 @@ An interactive photo gallery for baby's first year and beyond. Keep track of mil
 
 ## TODO
 
-* error handling
 * vue & parcel part
 * electron

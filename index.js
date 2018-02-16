@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const Hapi = require('hapi')
+const Boom = require('boom')
 const Inert = require('inert')
 const Blankie = require('blankie')
 const Scooter = require('scooter')
@@ -20,6 +21,8 @@ const cache = server.cache({
 const init = async () => {
   await server.register(AuthCookie)
   await server.register(Inert)
+
+  // CSP
   await server.register([
     Scooter,
     {
@@ -95,6 +98,23 @@ const init = async () => {
       path: '/oauthredirect',
       options: {
         handler: async (request, h) => h.redirect('/'),
+      },
+    },
+    {
+      method: ['GET', 'POST'],
+      path: '/{any*}',
+      handler: request => {
+        const accept = request.raw.req.headers.accept
+
+        if (accept && accept.match(/json/)) {
+          // check header if there's a JSON request, not found
+          return Boom.notFound()
+        }
+
+        return (
+          '<html><head><title>Login page</title></head><body><h3>404' +
+          '</h3><br/></body></html>'
+        )
       },
     },
   ])
